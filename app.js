@@ -2,21 +2,27 @@ let title = document.querySelector("#title");
 let paragraph = document.querySelector("#paragraph");
 let imageUrl = document.querySelector("#url");
 let postBtn = document.querySelector("#post");
+let category = document.querySelector("#category");
 let form = document.querySelector("form");
 
-let categoryBtn = document.createElement("button");
 
 form.addEventListener("submit", (e) => {
   e.preventDefault();
-  // addPost();
   newPost();
   e.target.reset();
 });
 
+ 
+
+
+  title.value = "";
+  paragraph.value = "";
+  imageUrl.value = "";
+  category.value = "";
 async function newPost() {
   const response = await axios.request({
     method: "post",
-    url: "https://peerup-web-dev-srv.herokuapp.com/parse/classes/PostIt",
+    url: 'https://peerup-web-dev-srv.herokuapp.com/parse/classes/PostIt',
     headers: {
       "X-Parse-Application-Id": "MVV6avFp",
       "Content-Type": "application/json",
@@ -25,17 +31,14 @@ async function newPost() {
       "title": title.value,
       "description": paragraph.value,
       "image": imageUrl.value,
-      "category": categoryBtn.value
+      "category": category.value
     },
   });
-  console.log(response.data);
-  title = "";
-  paragraph = "";
-  imageUrl = "";
-  categoryBtn = "";
+  
+  getData()
 }
 
-newPost();
+
 
 async function getData() {
   const response = await axios.request({
@@ -47,9 +50,9 @@ async function getData() {
     },
     data: {},
   });
-  console.log(response.data);
+  // console.log(response.data);
 
-  for (let postDetails of response.data.results) {
+  for (let postDetails of response.data.results.reverse()) {
     console.log(postDetails);
 
     const postTemplate = `
@@ -66,7 +69,9 @@ async function getData() {
     const post = document.createElement("div");
     post.innerHTML = postTemplate;
     bodyElement.appendChild(post);
-    // post.append(".postTemplate");
+    
   }
 }
+
 getData();
+
