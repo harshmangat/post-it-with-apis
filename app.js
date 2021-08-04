@@ -19,7 +19,8 @@ form.addEventListener("submit", (e) => {
   paragraph.value = "";
   imageUrl.value = "";
   category.value = "";
-async function newPost() {
+
+const newPost = async() => {
   const response = await axios.request({
     method: "post",
     url: 'https://peerup-web-dev-srv.herokuapp.com/parse/classes/PostIt',
@@ -40,7 +41,7 @@ async function newPost() {
 
 
 
-async function getData() {
+const getData = async() =>{
   const response = await axios.request({
     method: "get",
     url: "https://peerup-web-dev-srv.herokuapp.com/parse/classes/PostIt",
