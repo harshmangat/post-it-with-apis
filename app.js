@@ -50,11 +50,10 @@ async function getData() {
     },
     data: {},
   });
-  // console.log(response.data);
+  
 
   for (let postDetails of response.data.results.reverse()) {
-    console.log(postDetails);
-
+    
     const postTemplate = `
     <div class="post">
       <img class="img" src="${postDetails.image}" />
